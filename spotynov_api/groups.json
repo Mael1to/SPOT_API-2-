@@ -1,11 +1,13 @@
 {
-    "Developpeurs": {
-        "members": []
-    },
     "Nouveaux Developpeurs": {
         "members": [
-            "erion",
             "mael"
+        ],
+        "admin": "mael"
+    },
+    "ynov2": {
+        "members": [
+            "erion"
         ],
         "admin": "erion"
     }

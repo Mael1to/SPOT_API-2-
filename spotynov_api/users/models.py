@@ -82,18 +82,37 @@ class GroupManager:
 
     @staticmethod
     def create_group(group_name, creator):
-        """Crée un groupe et désigne le créateur comme administrateur."""
+        """Crée un groupe et désigne le créateur comme administrateur après l'avoir fait quitter son ancien groupe."""
         groups = GroupManager.load_groups()
-        if group_name in groups:
-            return {"error": "Ce groupe existe déjà."}
 
+        user_group = GroupManager.get_user_group(creator)
+        leave_message = None 
+
+        if user_group:
+            leave_result = GroupManager.leave_group(creator)
+            if "error" not in leave_result:
+                leave_message = leave_result["message"]
+                groups = GroupManager.load_groups()  
+
+            
+            if group_name in groups:
+                return {"error": "Ce groupe existe déjà."}
+     
         groups[group_name] = {
             "members": [creator],
-            "admin": creator 
+            "admin": creator
         }
         GroupManager.save_groups(groups)
 
-        return {"message": f"Groupe '{group_name}' créé avec succès.", "admin": creator}
+        response = {
+            "message": f"Groupe '{group_name}' créé avec succès.",
+            "admin": creator
+        }
+        if leave_message:
+            response["previous_group_left"] = leave_message  
+
+        return response
+
 
     @staticmethod
     def leave_group(username):
@@ -105,7 +124,14 @@ class GroupManager:
             return {"error": "L'utilisateur n'appartient à aucun groupe."}
 
         groups[user_group]["members"].remove(username)
-
+  
+        if not groups[user_group]["members"]:
+            del groups[user_group] 
+            GroupManager.save_groups(groups)
+            return {
+                "message": f"{username} a quitté le groupe '{user_group}'.",
+                "info": f"Le groupe '{user_group}' a été supprimé car il n'avait plus de membres."
+        }
     
         if "admin" in groups[user_group] and groups[user_group]["admin"] == username:
             if groups[user_group]["members"]:

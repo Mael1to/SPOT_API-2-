@@ -39,13 +39,12 @@ class LoginView(APIView):
         
         if "error" in result:
             return Response(result, status=status.HTTP_401_UNAUTHORIZED)
+     
+        user_id = hash(username) % (10**8)  
 
-        # Simuler un ID utilisateur basé sur le pseudo (on évite les problèmes de 'id')
-        user_id = hash(username) % (10**8)  # Génère un ID unique sur 8 chiffres
-
-        # Générer un token avec un ID utilisateur
+        
         refresh = RefreshToken()
-        refresh["user_id"] = user_id  # Ajouter un ID utilisateur pour le JWT
+        refresh["user_id"] = user_id  
         refresh["username"] = username
 
         return Response({
@@ -61,7 +60,6 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({"message": "Accès autorisé, tu es authentifié !"}, status=status.HTTP_200_OK)
-
 
 
 class CustomTokenRefreshView(APIView):
@@ -85,14 +83,12 @@ class CustomTokenRefreshView(APIView):
             if username not in users:
                 raise AuthenticationFailed({"detail": "Utilisateur introuvable", "code": "user_not_found"})
 
-            # Générer un nouveau access_token
             new_access_token = str(refresh.access_token)
 
             return Response({"access": new_access_token}, status=status.HTTP_200_OK)
 
         except Exception as e:
             return Response({"error": "Refresh token invalide"}, status=status.HTTP_401_UNAUTHORIZED)
-
 
 class CreateGroupView(APIView):
     permission_classes = [IsAuthenticated]
@@ -104,7 +100,6 @@ class CreateGroupView(APIView):
 
         result = GroupManager.create_group(group_name, request.user.username)
         return Response(result, status=status.HTTP_201_CREATED if "error" not in result else status.HTTP_400_BAD_REQUEST)
-
 
 class JoinGroupView(APIView):
     permission_classes = [IsAuthenticated]

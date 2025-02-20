@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import RegisterView, LoginView, ProtectedView, CustomTokenRefreshView,  CreateGroupView, JoinGroupView, ListGroupsView, ListGroupMembersView, LeaveGroupView
-
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -12,7 +11,6 @@ urlpatterns = [
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
   
 ]
-
 urlpatterns += [
     path('groups/create/', CreateGroupView.as_view(), name='create_group'),
     path('groups/join/', JoinGroupView.as_view(), name='join_group'),
