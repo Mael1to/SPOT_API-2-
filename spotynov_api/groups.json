@@ -1,0 +1,14 @@
+{
+    "Developpeurs": {
+        "members": [
+            "mael"
+        ]
+    },
+    "Nouveaux Developpeurs": {
+        "members": [
+            "erion",
+            "mael"
+        ],
+        "admin": "erion"
+    }
+}

@@ -1,5 +1,11 @@
 {
     "testuser": {
         "password": "89e01536ac207279409d4de1e5253e01f4a1769e696db0d6062ca9b8f56767c8"
+    },
+    "mael": {
+        "password": "b1d04b906a71131b1a2f17f029f7203b083ae8965cf7dd036fc9c4465c826a90"
+    },
+    "erion": {
+        "password": "0c56a3db1b4aa17d4b9f01588e10916c0a7d19c16e7aacf347c756978e1de2e7"
     }
 }

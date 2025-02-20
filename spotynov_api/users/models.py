@@ -1,8 +1,7 @@
-from django.db import models
-
 import json
 import hashlib
 import os
+import random
 
 USERS_FILE = "users.json"
 
@@ -34,3 +33,100 @@ class UserManager:
 
         return {"message": "Utilisateur créé avec succès."}
 
+    @staticmethod
+    def authenticate_user(username, password):
+        """Vérifie si l'utilisateur existe et si le mot de passe est correct."""
+        users = UserManager.load_users()
+
+        if username not in users:
+            return {"error": "Nom d'utilisateur ou mot de passe incorrect."}
+
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        if users[username]["password"] != hashed_password:
+            return {"error": "Nom d'utilisateur ou mot de passe incorrect."}
+
+        return {"message": "Connexion réussie."}
+
+
+GROUPS_FILE = "groups.json"
+
+class GroupManager:
+    @staticmethod
+    def load_groups():
+        """Charge les groupes depuis le fichier JSON."""
+        if not os.path.exists(GROUPS_FILE):
+            with open(GROUPS_FILE, "w") as f:
+                json.dump({}, f)  
+
+        try:
+            with open(GROUPS_FILE, "r") as f:
+                data = f.read().strip()
+                return json.loads(data) if data else {}
+        except json.JSONDecodeError:
+            return {}
+
+    @staticmethod
+    def save_groups(groups):
+        """Sauvegarde les groupes dans le fichier JSON."""
+        with open(GROUPS_FILE, "w") as f:
+            json.dump(groups, f, indent=4)
+
+    @staticmethod
+    def get_user_group(username):
+        """Trouve le groupe auquel appartient un utilisateur."""
+        groups = GroupManager.load_groups()
+        for group, data in groups.items():
+            if username in data["members"]:
+                return group
+        return None
+
+    @staticmethod
+    def create_group(group_name, creator):
+        """Crée un groupe et désigne le créateur comme administrateur."""
+        groups = GroupManager.load_groups()
+        if group_name in groups:
+            return {"error": "Ce groupe existe déjà."}
+
+        groups[group_name] = {
+            "members": [creator],
+            "admin": creator 
+        }
+        GroupManager.save_groups(groups)
+
+        return {"message": f"Groupe '{group_name}' créé avec succès.", "admin": creator}
+
+    @staticmethod
+    def leave_group(username):
+        """Permet à un utilisateur de quitter son groupe actuel."""
+        groups = GroupManager.load_groups()
+        user_group = GroupManager.get_user_group(username)
+
+        if not user_group:
+            return {"error": "L'utilisateur n'appartient à aucun groupe."}
+
+        groups[user_group]["members"].remove(username)
+
+        if "admin" in groups[user_group] and groups[user_group]["admin"] == username:
+            if groups[user_group]["members"]:
+                new_admin = random.choice(groups[user_group]["members"])
+                groups[user_group]["admin"] = new_admin
+            else:
+                del groups[user_group]
+
+        GroupManager.save_groups(groups)
+        return {"message": f"{username} a quitté le groupe '{user_group}'."}
+
+    @staticmethod
+    def join_group(group_name, username):
+        """Ajoute un utilisateur à un groupe existant, ou le crée s'il n'existe pas."""
+        groups = GroupManager.load_groups()
+
+        GroupManager.leave_group(username)
+
+        if group_name not in groups:
+            return GroupManager.create_group(group_name, username)
+
+        groups[group_name]["members"].append(username)
+        GroupManager.save_groups(groups)
+
+        return {"message": f"{username} a rejoint le groupe '{group_name}'."}
