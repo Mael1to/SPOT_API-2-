@@ -106,6 +106,7 @@ class GroupManager:
 
         groups[user_group]["members"].remove(username)
 
+    
         if "admin" in groups[user_group] and groups[user_group]["admin"] == username:
             if groups[user_group]["members"]:
                 new_admin = random.choice(groups[user_group]["members"])
@@ -114,19 +115,40 @@ class GroupManager:
                 del groups[user_group]
 
         GroupManager.save_groups(groups)
+
         return {"message": f"{username} a quitté le groupe '{user_group}'."}
+
 
     @staticmethod
     def join_group(group_name, username):
         """Ajoute un utilisateur à un groupe existant, ou le crée s'il n'existe pas."""
         groups = GroupManager.load_groups()
 
-        GroupManager.leave_group(username)
+
+        user_group = GroupManager.get_user_group(username)
+        leave_message = None  
+
+        if user_group:
+            leave_result = GroupManager.leave_group(username)  
+            if "error" not in leave_result:
+                leave_message = leave_result["message"]
+                groups = GroupManager.load_groups() 
+
 
         if group_name not in groups:
-            return GroupManager.create_group(group_name, username)
+            create_result = GroupManager.create_group(group_name, username)
+            if leave_message:
+                create_result["previous_group_left"] = leave_message
+            return create_result
+
 
         groups[group_name]["members"].append(username)
         GroupManager.save_groups(groups)
 
-        return {"message": f"{username} a rejoint le groupe '{group_name}'."}
+        response = {"message": f"{username} a rejoint le groupe '{group_name}'."}
+        if leave_message:
+            response["previous_group_left"] = leave_message
+
+        return response
+
+
