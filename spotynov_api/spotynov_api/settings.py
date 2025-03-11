@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+# Configuration de Spotify
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -146,3 +148,8 @@ SIMPLE_JWT = {
     "USER_ID_FIELD": "username",  
     "USER_ID_CLAIM": "username",  
 }
+# Configuration Spotify
+SPOTIFY_CLIENT_ID = "f4382a97a0d24848aec0bfd4cef249a5"
+SPOTIFY_CLIENT_SECRET = "deeca64e8e9a49ff8d20ae1ee74e1473"
+SPOTIFY_REDIRECT_URI = "http://localhost:5000/callback"
+

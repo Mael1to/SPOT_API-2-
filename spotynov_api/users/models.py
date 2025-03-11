@@ -94,9 +94,8 @@ class GroupManager:
                 leave_message = leave_result["message"]
                 groups = GroupManager.load_groups()  
 
-            
-            if group_name in groups:
-                return {"error": "Ce groupe existe déjà."}
+        if group_name in groups:
+            return {"error": "Ce groupe existe déjà."}
      
         groups[group_name] = {
             "members": [creator],
@@ -113,7 +112,6 @@ class GroupManager:
 
         return response
 
-
     @staticmethod
     def leave_group(username):
         """Permet à un utilisateur de quitter son groupe actuel."""
@@ -124,15 +122,15 @@ class GroupManager:
             return {"error": "L'utilisateur n'appartient à aucun groupe."}
 
         groups[user_group]["members"].remove(username)
-  
+
         if not groups[user_group]["members"]:
             del groups[user_group] 
             GroupManager.save_groups(groups)
             return {
                 "message": f"{username} a quitté le groupe '{user_group}'.",
                 "info": f"Le groupe '{user_group}' a été supprimé car il n'avait plus de membres."
-        }
-    
+            }
+
         if "admin" in groups[user_group] and groups[user_group]["admin"] == username:
             if groups[user_group]["members"]:
                 new_admin = random.choice(groups[user_group]["members"])
@@ -144,12 +142,10 @@ class GroupManager:
 
         return {"message": f"{username} a quitté le groupe '{user_group}'."}
 
-
     @staticmethod
     def join_group(group_name, username):
         """Ajoute un utilisateur à un groupe existant, ou le crée s'il n'existe pas."""
         groups = GroupManager.load_groups()
-
 
         user_group = GroupManager.get_user_group(username)
         leave_message = None  
@@ -158,15 +154,13 @@ class GroupManager:
             leave_result = GroupManager.leave_group(username)  
             if "error" not in leave_result:
                 leave_message = leave_result["message"]
-                groups = GroupManager.load_groups() 
-
+                groups = GroupManager.load_groups()  
 
         if group_name not in groups:
             create_result = GroupManager.create_group(group_name, username)
             if leave_message:
                 create_result["previous_group_left"] = leave_message
             return create_result
-
 
         groups[group_name]["members"].append(username)
         GroupManager.save_groups(groups)
@@ -177,4 +171,8 @@ class GroupManager:
 
         return response
 
-
+    @staticmethod
+    def list_groups():
+        """Retourne la liste de tous les groupes et le nombre de membres."""
+        groups = GroupManager.load_groups()
+        return [{"name": name, "nombre_utilisateurs": len(data["members"])} for name, data in groups.items()]
