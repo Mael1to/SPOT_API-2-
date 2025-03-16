@@ -120,18 +120,28 @@ http://localhost:8000/swagger/
 
 ## Structure du projet
 ```
-spotynov-api/
-│── backend/         # API Django
-│   ├── api/         # Logique métier et endpoints
-│   ├── users/       # Gestion des utilisateurs
-│   ├── groups/      # Gestion des groupes
-│   ├── spotify/     # Liaison avec Spotify
-│   └── requirements.txt
-│── frontend/        # Application React
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│── README.md        # Ce fichier
+spotynov_api/
+│── __pycache__/
+│── asgi.py
+│── settings.py
+│── urls.py
+│── wsgi.py
+│── users/
+│   ├── __pycache__/
+│   ├── migrations/
+│   │   ├── __init__.py
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── authentication.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│── db.sqlite3
+│── groups.json
+│── manage.py
+
 ```
 
 ## Équipe
