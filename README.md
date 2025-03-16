@@ -17,20 +17,11 @@ git clone https://github.com/Mael1to/SPOT_API-2-.git
 cd spotynov-api
 ```
 
-### 2. Installation des dépendances
-#### Backend (Django)
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # Sur Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+### 2. Installer les dépendances:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-#### Frontend (React)
-```bash
-cd frontend
-npm install
-```
 
 ## Configuration de l'environnement
 
@@ -45,19 +36,13 @@ DEBUG=True
 
 ## Lancement du projet
 
-### 1. Démarrer le serveur Django (Backend)
-Dans le dossier **backend**, exécutez :
-```bash
-python manage.py runserver
-```
+### 1. Démarrer le serveur Django :
+
+   ```bash
+   python manage.py runserver
+   ```
 Le serveur est accessible à [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-### 2. Démarrer l’application React (Frontend)
-Dans le dossier **frontend**, exécutez :
-```bash
-npm start
-```
-L’application s’ouvrira dans le navigateur à [http://localhost:3000](http://localhost:3000).
 
 ## Fonctionnalités implémentées
 
