@@ -1,0 +1,26 @@
+{
+    "testuser": {
+        "password": "89e01536ac207279409d4de1e5253e01f4a1769e696db0d6062ca9b8f56767c8"
+    },
+    "mael": {
+        "password": "b1d04b906a71131b1a2f17f029f7203b083ae8965cf7dd036fc9c4465c826a90",
+        "spotify_access_token": "BQD1FclCqT9rdRAIpZVMfh7nDUs4Q6pyFQIS5B_0DBO54zRTLGZDZlZ-CW_I3W8mw8LYVmz4NOHj57ooFosG47QvkwK3S0GZYDP_-Muh_JzVAp1nOHapTj6zixdOUmt_Uhm6ai4-Lnf1L2EqzV56JhvrG5nIvFxnkdkaMdvnZBusMFDbuAfmEfVhURfPocwfpVZcjRhh3gk3lAxG8kTYKA5_bjWNyuFbJSFpEtk",
+        "spotify_refresh_token": "AQAFDv4VQKsCCuuxyl77yh1DxgJf42oU7rddN3c4OWlbTrSzr9-YqQu062NDz0gZbP3DN5c76v7TwrI-UACuo4V4AeGka7slRhzR0A2aaGK4pVwfAqWmGSS86jrZBPj3zWU"
+    },
+    "erion": {
+        "password": "0c56a3db1b4aa17d4b9f01588e10916c0a7d19c16e7aacf347c756978e1de2e7"
+    },
+    "": {
+        "spotify_access_token": "BQC4DOY7cpVM0Qo1xWr5qQLFqVAkegGI8hxxdPDj7ruGThYbaHW-aPvmIIWZQ8_TXESagnlxjoBPrsjjQ_8W0ZhxhtiyCvxKKtQ09zGvJFJ6IBMOP5J3T-L8uK5u34q3TbP6cXlw4ZqDON8Zi2not4TSr4W1JhIvXTLZHmmMrMoS_T6Ld-Z4LuzAehtI4pszJ1cO4SQmgTx_9e4uni7wkwN5tf0SOgY-M0Ubwd8",
+        "spotify_refresh_token": "AQAFDv4VQKsCCuuxyl77yh1DxgJf42oU7rddN3c4OWlbTrSzr9-YqQu062NDz0gZbP3DN5c76v7TwrI-UACuo4V4AeGka7slRhzR0A2aaGK4pVwfAqWmGSS86jrZBPj3zWU"
+    },
+    "testuser2": {
+        "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+    },
+    "newuser": {
+        "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+    },
+    "newuse": {
+        "password": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+    }
+}

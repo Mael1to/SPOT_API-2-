@@ -1,0 +1,20 @@
+{
+    "Nouveaux Developpeurs": {
+        "members": [
+            "mael"
+        ],
+        "admin": "mael"
+    },
+    "ynov2": {
+        "members": [
+            "erion"
+        ],
+        "admin": "erion"
+    },
+    "MonGroupe": {
+        "members": [
+            "testuser"
+        ],
+        "admin": "testuser"
+    }
+}
